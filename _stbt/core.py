@@ -24,6 +24,7 @@ from contextlib import contextmanager
 
 import cv2
 import gi
+from six import reraise
 
 import _stbt.cv2_compat as cv2_compat
 from _stbt import logging
@@ -201,7 +202,7 @@ class DeviceUnderTest(object):
                 except Exception:  # pylint:disable=broad-except
                     # Don't mask original exception from the test script.
                     pass
-                raise exc_info[0], exc_info[1], exc_info[2]
+                reraise(exc_info[0], exc_info[1], exc_info[2])
             else:
                 self._control.keyup(key)
                 out.end_time = self._time.time()

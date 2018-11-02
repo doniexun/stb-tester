@@ -44,6 +44,7 @@ import time
 from collections import namedtuple
 
 from enum import Enum
+from six import reraise
 
 from _stbt.logging import debug
 
@@ -208,8 +209,8 @@ class AdbDevice(object):
                 self._connect(timeout_secs)
             output = self._adb(command, timeout_secs, **kwargs)
         except subprocess.CalledProcessError as e:
-            raise AdbError(e.returncode, e.cmd, e.output, self), \
-                None, sys.exc_info()[2]
+            reraise(AdbError(e.returncode, e.cmd, e.output, self),
+                    None, sys.exc_info()[2])
         if capture_output:
             return output
         else:
