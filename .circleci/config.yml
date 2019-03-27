@@ -6,6 +6,7 @@ jobs:
       - image: stbtester/circleci:ubuntu1604
     environment:
       PYTHON: /usr/bin/python2.7
+      PYTHON_VERSION: 2.7
     steps:
       - checkout
       - test
@@ -13,18 +14,20 @@ jobs:
 
   ubuntu1804-python2:
     docker:
-      - image: stbtester/circleci:ubuntu1804
+      - image: stbtester/circleci:ubuntu1804-python2
     environment:
       PYTHON: /usr/bin/python2.7
+      PYTHON_VERSION: 2.7
     steps:
       - checkout
       - test
 
   ubuntu1804-python3:
     docker:
-      - image: stbtester/circleci:ubuntu1804
+      - image: stbtester/circleci:ubuntu1804-python3
     environment:
       PYTHON: /usr/bin/python3.6
+      PYTHON_VERSION: 3.6
     steps:
       - checkout
       - test
@@ -55,7 +58,7 @@ commands:
             pip uninstall -y pylint astroid
             pylint --version
             PATH="$PWD/tests/test-install/bin:$PATH" \
-            PYTHONPATH="$PWD/tests/test-install/lib/python2.7/site-packages:$PYTHONPATH" \
+            PYTHONPATH="$PWD/tests/test-install/lib/python$PYTHON_VERSION/site-packages:$PYTHONPATH" \
             tests/run-tests.sh -i tests/test-stbt-lint.sh
 
 workflows:
@@ -63,3 +66,4 @@ workflows:
     jobs:
       - ubuntu1604-python2
       - ubuntu1804-python2
+      - ubuntu1804-python3
