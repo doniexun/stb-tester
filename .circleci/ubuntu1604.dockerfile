@@ -11,7 +11,6 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
         expect-dev \
         gdb \
         gir1.2-gstreamer-1.0 \
-        gir1.2-gudev-1.0 \
         git \
         gstreamer1.0-libav \
         gstreamer1.0-plugins-bad \
@@ -25,7 +24,6 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
         libopencv-dev \
         liborc-0.4-dev \
         librsvg2-bin \
-        lighttpd \
         moreutils \
         pep8 \
         pylint \
@@ -37,19 +35,16 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
         python-kitchen \
         python-libcec \
         python-lxml \
-        python-matplotlib \
         python-mock \
         python-nose \
         python-numpy \
         python-opencv \
         python-pip \
         python-pysnmp4 \
-        python-qrcode \
         python-requests \
         python-scipy \
         python-serial \
         python-yaml \
-        python-zbar \
         socat \
         ssh \
         sudo \
@@ -58,7 +53,6 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
         tesseract-ocr-deu \
         tesseract-ocr-eng \
         time \
-        v4l-utils \
         wget \
         xterm && \
     apt-get clean
