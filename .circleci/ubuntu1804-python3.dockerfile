@@ -28,12 +28,12 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
         parallel \
         pep8 \
         pylint3 \
-        python3-dev \
         python3-docutils \
         python3-flask \
         python3-gi \
         python3-jinja2 \
         python3-kitchen \
+        python3-lmdb \
         python3-lxml \
         python3-mock \
         python3-nose \

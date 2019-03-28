@@ -27,13 +27,13 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
         moreutils \
         pep8 \
         pylint \
-        python-dev \
         python-docutils \
         python-flask \
         python-gi \
         python-jinja2 \
         python-kitchen \
         python-libcec \
+        python-lmdb \
         python-lxml \
         python-mock \
         python-nose \
