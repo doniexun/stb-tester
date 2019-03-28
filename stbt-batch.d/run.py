@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 
 # Copyright 2015-2018 stb-tester.com Ltd.
 # License: LGPL v2.1 or (at your option) any later version (see

@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 #                                                    -*- sh-basic-offset: 2 -*-
 
 # Copyright 2013 YouView TV Ltd.
