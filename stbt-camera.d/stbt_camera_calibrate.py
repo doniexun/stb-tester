@@ -150,7 +150,7 @@ def chessboard_calibration(dut, timeout=10):
             '{ihm12} {ihm22} {ihm32} '
             '{ihm13} {ihm23} {ihm33}').format(**params),
     }
-    for key, value in list(geometriccorrection_params.items()):
+    for key, value in geometriccorrection_params.items():
         geometriccorrection.set_property(key, value)
 
     print_error_map(
@@ -159,7 +159,7 @@ def chessboard_calibration(dut, timeout=10):
 
     set_config(
         'global', 'geometriccorrection_params',
-        ' '.join('%s="%s"' % v for v in list(geometriccorrection_params.items())))
+        ' '.join('%s="%s"' % v for v in geometriccorrection_params.items()))
 
 #
 # Colour Measurement
@@ -307,7 +307,7 @@ def prompt_for_adjustment(device):
             return ['yes', 'no', 'set']
         if text.startswith('set '):
             return ['set ' + x + ' '
-                    for x in list(ctls.keys()) if x.startswith(text[4:])]
+                    for x in ctls.keys() if x.startswith(text[4:])]
         if "set ".startswith(text.lower()):
             return ["set "]
         if 'yes'.startswith(text.lower()):
@@ -329,7 +329,7 @@ def prompt_for_adjustment(device):
 
     set_config('global', 'v4l2_ctls', ','.join(
         ["%s=%s" % (c, a['value'])
-         for c, a in list(dict(v4l2_ctls(device)).items())]))
+         for c, a in dict(v4l2_ctls(device)).items()]))
 
     if cmd.startswith('y') or cmd == '':
         return False  # We're done
@@ -493,11 +493,11 @@ def calibrate_illumination(dut, tv):
 
     contraststretch = dut._display.source_pipeline.get_by_name(
         'illumination_correction')
-    for k, v in reversed(list(props.items())):
+    for k, v in reversed(props.items()):
         contraststretch.set_property(k, v)
     set_config(
         'global', 'contraststretch_params',
-        ' '.join(["%s=%s" % (k, v) for k, v in list(props.items())]))
+        ' '.join(["%s=%s" % (k, v) for k, v in props.items()]))
 
 
 #

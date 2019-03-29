@@ -130,7 +130,7 @@ videos = {
     name:
     ('image/svg',
      lambda bg=bg, fg=fg: [(generate_letters_svg(fg, bg), 240 * Gst.SECOND)])
-    for name, (fg, bg) in list(STANDARD_COLOURS.items())}
+    for name, (fg, bg) in STANDARD_COLOURS.items()}
 
 
 def validate(video, driver, validate_match=True):

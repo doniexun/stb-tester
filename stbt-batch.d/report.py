@@ -62,7 +62,7 @@ def index(parentdir):
         name=basename(abspath(parentdir)).replace("_", " "),
         runs=runs,
         extra_columns=set(
-            itertools.chain(*[list(x.extra_columns.keys()) for x in runs])),
+            itertools.chain(*[x.extra_columns.keys() for x in runs])),
     ).encode('utf-8'))
 
 

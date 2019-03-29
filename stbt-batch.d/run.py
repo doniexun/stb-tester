@@ -538,7 +538,7 @@ def shuffle(test_cases, repeat=True):
         return
 
     while True:
-        test = weighted_choice([(k, v[1] / v[0]) for k, v in list(timings.items())])
+        test = weighted_choice([(k, v[1] / v[0]) for k, v in timings.items()])
         start_time = time.time()
         yield test
         timings[test][0] += time.time() - start_time
