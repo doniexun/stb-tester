@@ -54,7 +54,6 @@ from builtins import *  # pylint:disable=redefined-builtin,unused-wildcard-impor
 import argparse
 import errno
 import fnmatch
-import io
 import multiprocessing
 import os
 import re
@@ -65,6 +64,7 @@ import tempfile
 import time
 import traceback
 from collections import namedtuple
+from io import StringIO
 from textwrap import dedent, wrap
 
 from _stbt.imgproc_cache import cache
@@ -315,7 +315,7 @@ def inspect_module(module_filename):
 def write_bare_doctest(module, output_filename):
     total_tests_written = 0
 
-    outfile = io.StringIO()
+    outfile = StringIO()
     screenshots_rel = os.path.relpath(
         SCREENSHOTS_ROOT, os.path.dirname(output_filename))
 
@@ -465,7 +465,7 @@ def update_doctests(infilename, outfile):
             would_unicode_fail = [False]
 
             oldstdout = sys.stdout
-            io = io.StringIO()
+            io = StringIO()
             real_write = io.write
 
             def io_write(text, *args, **kwargs):
