@@ -1,3 +1,6 @@
+#!/usr/bin/python -u
+# coding: utf-8
+
 from __future__ import division
 from __future__ import unicode_literals
 from __future__ import print_function
@@ -9,8 +12,6 @@ from builtins import input
 from builtins import range
 from builtins import *
 from builtins import object
-#!/usr/bin/python -u
-# Encoding: utf-8
 # pylint:disable=protected-access
 
 import math
