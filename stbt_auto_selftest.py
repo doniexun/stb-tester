@@ -45,9 +45,16 @@ For more information on the background behind auto-selftests see
 `Improve black-box testing agility: automatic self-regression tests
 <https://stb-tester.com/blog/2015/09/24/automatic-self-regression-tests>`_.
 """
+from __future__ import unicode_literals
+from __future__ import print_function
+from __future__ import division
+from __future__ import absolute_import
+from future import standard_library
+standard_library.install_aliases()
+from builtins import *
 
 import argparse
-import cStringIO
+import io
 import errno
 import fnmatch
 import multiprocessing
@@ -55,7 +62,7 @@ import os
 import re
 import shutil
 import signal
-import StringIO
+import io
 import sys
 import tempfile
 import time
@@ -311,7 +318,7 @@ def inspect_module(module_filename):
 def write_bare_doctest(module, output_filename):
     total_tests_written = 0
 
-    outfile = cStringIO.StringIO()
+    outfile = io.StringIO()
     screenshots_rel = os.path.relpath(
         SCREENSHOTS_ROOT, os.path.dirname(output_filename))
 
@@ -407,17 +414,17 @@ def write_test_for_class(item, out):
 def print_perf_summary(perf_log, total_time):
     perf_log.sort(key=lambda x: -x[1])
     eval_time = sum(x[1] for x in perf_log)
-    print "Total time: %fs" % total_time
-    print "Total time evaluating: %fs" % eval_time
-    print "Overhead: %fs (%f%%)" % (
-        total_time - eval_time, 100 * (total_time - eval_time) / total_time)
-    print "Number of expressions evaluated: %i" % len(perf_log)
+    print("Total time: %fs" % total_time)
+    print("Total time evaluating: %fs" % eval_time)
+    print("Overhead: %fs (%f%%)" % (
+        total_time - eval_time, 100 * (total_time - eval_time) / total_time))
+    print("Number of expressions evaluated: %i" % len(perf_log))
     if len(perf_log) == 0:
         return
-    print "Median time: %fs" % perf_log[len(perf_log) // 2][1]
-    print "Slowest 10 evaluations:"
+    print("Median time: %fs" % perf_log[len(perf_log) // 2][1])
+    print("Slowest 10 evaluations:")
     for cmd, duration in perf_log[:10]:
-        print "%.03fs\t%s" % (duration, cmd)
+        print("%.03fs\t%s" % (duration, cmd))
 
 
 def update_doctests(infilename, outfile):
@@ -461,11 +468,11 @@ def update_doctests(infilename, outfile):
             would_unicode_fail = [False]
 
             oldstdout = sys.stdout
-            io = StringIO.StringIO()
+            io = io.StringIO()
             real_write = io.write
 
             def io_write(text, *args, **kwargs):
-                if isinstance(text, unicode):
+                if isinstance(text, str):
                     try:
                         text = text.encode('ascii')
                     except UnicodeEncodeError:
@@ -479,13 +486,13 @@ def update_doctests(infilename, outfile):
                 result[0] = "truthy" if bool(value) else "falsey"
                 did_print[0] = (io.tell() != 0)
                 if value is not None:
-                    print repr(value)
+                    print(repr(value))
 
             try:
                 start_time = time.time()
                 sys.stdout = io
                 old_displayhook, sys.displayhook = sys.displayhook, displayhook
-                exec compile(cmd, "<string>", "single") in module.__dict__  # pylint: disable=exec-used
+                exec(compile(cmd, "<string>", "single"), module.__dict__)  # pylint: disable=exec-used
                 if did_print[0] is None:
                     did_print[0] = (io.tell() != 0)
             except Exception:  # pylint: disable=broad-except

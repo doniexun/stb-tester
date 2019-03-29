@@ -9,6 +9,13 @@
 # Uses Flask, a python web micro-framework: http://flask.pocoo.org
 # Run with `cd results-directory; stbt batch instaweb 0.0.0.0:8080`
 
+from __future__ import unicode_literals
+from __future__ import print_function
+from __future__ import division
+from __future__ import absolute_import
+from future import standard_library
+standard_library.install_aliases()
+from builtins import *
 import argparse
 import mimetypes
 import os

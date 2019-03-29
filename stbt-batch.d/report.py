@@ -5,6 +5,15 @@
 # https://github.com/stb-tester/stb-tester/blob/master/LICENSE for details).
 
 """Generates reports from logs of stb-tester test runs created by 'run'."""
+from __future__ import division
+from __future__ import unicode_literals
+from __future__ import print_function
+from __future__ import absolute_import
+from future import standard_library
+standard_library.install_aliases()
+from builtins import *
+from builtins import object
+from past.utils import old_div
 
 import collections
 import glob
@@ -29,7 +38,7 @@ def main(argv):
     if len(argv[1:]) == 0:
         die(usage)
     if argv[1] in ("-h", "--help"):
-        print usage
+        print(usage)
         sys.exit(0)
     for target in argv[1:]:
         if isdir(target):
@@ -51,18 +60,18 @@ def index(parentdir):
     runs = [Run(d) for d in sorted(rundirs, reverse=True)]
     if len(runs) == 0:
         die("Directory '%s' doesn't contain any testruns" % parentdir)
-    print templates.get_template("index.html").render(  # pylint:disable=no-member
+    print(templates.get_template("index.html").render(  # pylint:disable=no-member
         name=basename(abspath(parentdir)).replace("_", " "),
         runs=runs,
         extra_columns=set(
-            itertools.chain(*[x.extra_columns.keys() for x in runs])),
-    ).encode('utf-8')
+            itertools.chain(*[list(x.extra_columns.keys()) for x in runs])),
+    ).encode('utf-8'))
 
 
 def testrun(rundir):
-    print templates.get_template("testrun.html").render(  # pylint:disable=no-member
+    print(templates.get_template("testrun.html").render(  # pylint:disable=no-member
         run=Run(rundir),
-    ).encode('utf-8')
+    ).encode('utf-8'))
 
 
 class Run(object):
@@ -149,7 +158,7 @@ class Run(object):
             s = int(s)
         except ValueError:
             s = 0
-        return "%02d:%02d:%02d" % (s / 3600, (s % 3600) / 60, s % 60)
+        return "%02d:%02d:%02d" % (old_div(s, 3600), old_div((s % 3600), 60), s % 60)
 
 
 def die(message):

@@ -5,6 +5,16 @@
 # https://github.com/stb-tester/stb-tester/blob/master/LICENSE for details).
 
 
+from __future__ import division
+from __future__ import unicode_literals
+from __future__ import print_function
+from __future__ import absolute_import
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
+from builtins import range
+from builtins import *
+from past.utils import old_div
 import argparse
 import datetime
 import errno
@@ -161,16 +171,16 @@ def html_report(batch_args, rundir):
 def stdout_logging(batch_args, test_name, test_args):
     display_name = " ".join((test_name,) + test_args)
     if batch_args.verbose > 0:
-        print "\n%s ..." % display_name
+        print("\n%s ..." % display_name)
     else:
-        print "%s ... " % display_name,
+        print("%s ... " % display_name, end=' ')
 
 
 def post_run_stdout_logging(exit_status):
     if exit_status == 0:
-        print "OK"
+        print("OK")
     else:
-        print "FAILED"
+        print("FAILED")
 
 
 @contextmanager
@@ -531,7 +541,7 @@ def shuffle(test_cases, repeat=True):
         return
 
     while True:
-        test = weighted_choice([(k, v[1] / v[0]) for k, v in timings.items()])
+        test = weighted_choice([(k, old_div(v[1], v[0])) for k, v in list(timings.items())])
         start_time = time.time()
         yield test
         timings[test][0] += time.time() - start_time
@@ -541,7 +551,7 @@ def shuffle(test_cases, repeat=True):
 def test_that_shuffle_runs_through_all_tests_initially_with_repeat():
     from itertools import islice
 
-    test_cases = range(20)
+    test_cases = list(range(20))
     out = list(islice(shuffle(test_cases), 20))
 
     # They must be randomised:
@@ -552,7 +562,7 @@ def test_that_shuffle_runs_through_all_tests_initially_with_repeat():
 
 
 def test_that_shuffle_runs_through_all_tests_no_repeat():
-    test_cases = range(20)
+    test_cases = list(range(20))
     out = list(shuffle(test_cases, repeat=False))
 
     # They must be randomised:
@@ -588,9 +598,9 @@ def test_that_shuffle_equalises_time_across_tests():
     with patch('time.time', mytime):
         generator = shuffle(test_cases)
         while faketime[0] < 100000:
-            fake_run_test(generator.next())
+            fake_run_test(next(generator))
 
-    print time_spent_in_test
+    print(time_spent_in_test)
 
     assert 30000 < time_spent_in_test["test1"] < 36000
     assert 30000 < time_spent_in_test["test2"] < 36000

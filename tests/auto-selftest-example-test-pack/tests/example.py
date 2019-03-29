@@ -34,7 +34,7 @@ class FalseyFrameObject(stbt.FrameObject):
 #
 # Here's an example of testing a function instead of a class:
 def not_a_frame_object(name, _):
-    print "hello %s" % name
+    print("hello %s" % name)
     return True
 
 not_a_frame_object.AUTO_SELFTEST_EXPRESSIONS = [

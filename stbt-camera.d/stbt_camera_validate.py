@@ -1,6 +1,14 @@
 #!/usr/bin/python -u
 # coding: utf-8
 from __future__ import unicode_literals
+from __future__ import print_function
+from __future__ import division
+from __future__ import absolute_import
+from future import standard_library
+standard_library.install_aliases()
+from builtins import zip
+from builtins import range
+from builtins import *
 
 import argparse
 import math
@@ -122,7 +130,7 @@ videos = {
     name:
     ('image/svg',
      lambda bg=bg, fg=fg: [(generate_letters_svg(fg, bg), 240 * Gst.SECOND)])
-    for name, (fg, bg) in STANDARD_COLOURS.items()}
+    for name, (fg, bg) in list(STANDARD_COLOURS.items())}
 
 
 def validate(video, driver, validate_match=True):
@@ -229,7 +237,7 @@ def main(argv):
     args = parser.parse_args(argv[1:])
 
     if len(args.colour) == 0:
-        args.colour = STANDARD_COLOURS.keys()
+        args.colour = list(STANDARD_COLOURS.keys())
 
     driver = tv_driver.create_from_args(args, videos)
     failures = 0
