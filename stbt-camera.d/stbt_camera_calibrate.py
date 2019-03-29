@@ -8,7 +8,6 @@ from builtins import zip
 from builtins import input
 from builtins import range
 from builtins import *
-from past.utils import old_div
 from builtins import object
 #!/usr/bin/python -u
 # Encoding: utf-8
@@ -240,9 +239,9 @@ def analyse_colours_video(dut, number=None):
 def avg_colour(colours):
     n = len(colours)
     return (
-        old_div(sum([c[0] for c in colours]), n),
-        old_div(sum([c[1] for c in colours]), n),
-        old_div(sum([c[2] for c in colours]), n))
+        sum([c[0] for c in colours]) // n,
+        sum([c[1] for c in colours]) // n,
+        sum([c[2] for c in colours]) // n)
 
 
 example_v4l2_ctl_output = """\

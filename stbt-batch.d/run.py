@@ -14,7 +14,6 @@ standard_library.install_aliases()
 from builtins import str
 from builtins import range
 from builtins import *
-from past.utils import old_div
 import argparse
 import datetime
 import errno
@@ -541,7 +540,7 @@ def shuffle(test_cases, repeat=True):
         return
 
     while True:
-        test = weighted_choice([(k, old_div(v[1], v[0])) for k, v in list(timings.items())])
+        test = weighted_choice([(k, v[1] / v[0]) for k, v in list(timings.items())])
         start_time = time.time()
         yield test
         timings[test][0] += time.time() - start_time

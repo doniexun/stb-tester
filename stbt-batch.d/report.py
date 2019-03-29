@@ -13,7 +13,6 @@ from future import standard_library
 standard_library.install_aliases()
 from builtins import *
 from builtins import object
-from past.utils import old_div
 
 import collections
 import glob
@@ -158,7 +157,7 @@ class Run(object):
             s = int(s)
         except ValueError:
             s = 0
-        return "%02d:%02d:%02d" % (old_div(s, 3600), old_div((s % 3600), 60), s % 60)
+        return "%02d:%02d:%02d" % (s // 3600, (s % 3600) // 60, s % 60)
 
 
 def die(message):
