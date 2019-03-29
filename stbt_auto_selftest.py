@@ -54,15 +54,14 @@ standard_library.install_aliases()
 from builtins import *  # pylint:disable=redefined-builtin,unused-wildcard-import,wildcard-import,wrong-import-order
 
 import argparse
-import io
 import errno
 import fnmatch
+import io
 import multiprocessing
 import os
 import re
 import shutil
 import signal
-import io
 import sys
 import tempfile
 import time
